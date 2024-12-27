@@ -8,6 +8,12 @@
     <dependencies>
 
       <dependency>
+        <groupId>org.apache.dubbo</groupId>
+        <artifactId>dubbo</artifactId>
+        <version>2.7.17</version>
+      </dependency>
+
+      <dependency>
         <artifactId>lombok</artifactId>
         <groupId>org.projectlombok</groupId>
         <version>${lombok-version}</version>
@@ -37,6 +43,7 @@
     <module>hangu-tool-common</module>
     <module>hangu-tool-sensitive-spring-starter</module>
     <module>hangu-tool-sensitive-spring</module>
+    <module>hangu-tool-center</module>
   </modules>
 
   <packaging>pom</packaging>

@@ -12,11 +12,13 @@
         <module name="hangu-tool-common" />
         <module name="hangu-tool-sensitive-spring-starter" />
         <module name="hangu-tool-secret" />
+        <module name="hangu-tool-center" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hangu-tool-center" options="-parameters" />
       <module name="hangu-tool-common" options="-parameters" />
       <module name="hangu-tool-secret" options="-parameters" />
       <module name="hangu-tool-secret-spring-starter" options="-parameters" />
