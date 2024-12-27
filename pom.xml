@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>parent</artifactId>
+  <dependencyManagement>
+
+    <dependencies>
+
+      <dependency>
+        <artifactId>lombok</artifactId>
+        <groupId>org.projectlombok</groupId>
+        <version>${lombok-version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <scope>test</scope>
+        <version>${junit.version}</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>mybatis</artifactId>
+        <groupId>org.mybatis</groupId>
+        <version>${mybatis-version}</version>
+      </dependency>
+    </dependencies>
+
+  </dependencyManagement>
+  <groupId>com.hangu.tool</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>hangu-tool-secret</module>
+    <module>hangu-tool-secret-spring-starter</module>
+    <module>hangu-tool-sensitive</module>
+    <module>hangu-tool-common</module>
+    <module>hangu-tool-sensitive-spring-starter</module>
+    <module>hangu-tool-sensitive-spring</module>
+  </modules>
+
+  <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.7.2</version>
+  </parent>
+
+  <properties>
+    <junit.version>4.12</junit.version>
+    <lombok-version>1.18.20</lombok-version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <mybatis-version>3.5.7</mybatis-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <version>1.0-SNAPSHOT</version>
+
+</project>

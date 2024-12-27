@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hangu-tool-secret-spring-starter" />
+        <module name="hangu-tool-sensitive" />
+        <module name="hangu-tool-sensitive-spring" />
+        <module name="hangu-tool-common" />
+        <module name="hangu-tool-sensitive-spring-starter" />
+        <module name="hangu-tool-secret" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hangu-tool-common" options="-parameters" />
+      <module name="hangu-tool-secret" options="-parameters" />
+      <module name="hangu-tool-secret-spring-starter" options="-parameters" />
+      <module name="hangu-tool-sensitive" options="-parameters" />
+      <module name="hangu-tool-sensitive-spring" options="-parameters" />
+      <module name="hangu-tool-sensitive-spring-starter" options="-parameters" />
+    </option>
+  </component>
+</project>
