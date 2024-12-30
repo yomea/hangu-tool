@@ -1,6 +1,7 @@
 package com.hangu.tool.mybatis.secret.interceptor;
 
-import com.hangu.tool.mybatis.secret.annotated.Decrypt;
+import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
+import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.DecryptService;
 import com.hangu.tool.mybatis.secret.util.FieldReflectorUtil;
@@ -106,13 +107,28 @@ public class FieldDecryptInterceptor extends AbstractInterceptor {
         if (Objects.isNull(fieldBean) || Objects.isNull(field)) {
             return fieldBean;
         }
-        Decrypt deCryptoAnnotation = field.getAnnotation(Decrypt.class);
+        EnOrDecrypt deCryptoAnnotation = field.getAnnotation(EnOrDecrypt.class);
         if (Objects.isNull(deCryptoAnnotation)) {
             return fieldBean;
         }
-        Class<? extends DecryptService> decryptServerClass = deCryptoAnnotation.decrypt();
-        DecryptService decryptService = super.getByCache(decryptServerClass);
-        String decryptedValue = decryptService.decrypt(fieldBean);
+        boolean decrypt = deCryptoAnnotation.decrypt();
+        if (!decrypt) {
+            return fieldBean;
+        }
+        Class<? extends DecryptService>[] decryptServerClass = deCryptoAnnotation.decryptClass();
+        if (Objects.isNull(decryptServerClass) || decryptServerClass.length == 0) {
+            if(Objects.isNull(DefaultCryptStrategy.getDefaultDecrypt())) {
+                throw new RuntimeException("默认解密策略不能设置为空！");
+            } else {
+                decryptServerClass = new Class<>[] {DefaultCryptStrategy.getDefaultDecrypt()};
+            }
+        }
+        String decryptedValue = fieldBean;
+        for(Class<? extends DecryptService> decryptServiceClazz : decryptServerClass) {
+            DecryptService decryptService = super.getByCache(decryptServiceClazz);
+            decryptedValue = decryptService.decrypt(decryptedValue);
+        }
+
         return decryptedValue;
     }
 }

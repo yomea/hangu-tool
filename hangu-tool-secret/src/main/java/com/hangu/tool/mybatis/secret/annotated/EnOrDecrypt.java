@@ -1,5 +1,6 @@
 package com.hangu.tool.mybatis.secret.annotated;
 
+import com.hangu.tool.mybatis.secret.server.DecryptService;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
 import com.hangu.tool.mybatis.secret.server.impl.DefaultEncryptService;
 import java.lang.annotation.Documented;
@@ -17,7 +18,18 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Encrypt {
+public @interface EnOrDecrypt {
 
-    Class<? extends EncryptService> encrypt() default DefaultEncryptService.class;
+    /**
+     * 被标注的字段是否需要加密
+     */
+    boolean encrypt() default true;
+    /**
+     * 被标注的字段是否需要解密
+     */
+    boolean decrypt() default true;
+
+    Class<? extends EncryptService>[] encryptClass() default {};
+
+    Class<? extends DecryptService>[] decryptClass() default {};
 }

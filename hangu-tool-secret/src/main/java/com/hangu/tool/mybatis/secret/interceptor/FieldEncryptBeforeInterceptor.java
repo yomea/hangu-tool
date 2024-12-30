@@ -1,7 +1,8 @@
 package com.hangu.tool.mybatis.secret.interceptor;
 
-import com.hangu.tool.mybatis.secret.annotated.Encrypt;
+import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
 import com.hangu.tool.mybatis.secret.bo.FieldEncryptSnapshotBo;
+import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
 import com.hangu.tool.mybatis.secret.util.FieldReflectorUtil;
@@ -145,13 +146,27 @@ public class FieldEncryptBeforeInterceptor extends AbstractInterceptor {
         if (Objects.isNull(fieldBean) || Objects.isNull(field)) {
             return fieldBean;
         }
-        Encrypt encryptAnnotation = field.getAnnotation(Encrypt.class);
-        if (Objects.isNull(encryptAnnotation)) {
+        EnOrDecrypt enOrDecryptAnnotation = field.getAnnotation(EnOrDecrypt.class);
+        if (Objects.isNull(enOrDecryptAnnotation)) {
             return fieldBean;
         }
-        Class<? extends EncryptService> cryptoServerClass = encryptAnnotation.encrypt();
-        EncryptService encryptService = super.getByCache(cryptoServerClass);
-        String encryptedValue = encryptService.encrypt(fieldBean);
+        boolean encrypt = enOrDecryptAnnotation.encrypt();
+        if (!encrypt) {
+            return fieldBean;
+        }
+        Class<? extends EncryptService>[] encryptServerClass = enOrDecryptAnnotation.encryptClass();
+        if (Objects.isNull(encryptServerClass) || encryptServerClass.length == 0) {
+            if(Objects.isNull(DefaultCryptStrategy.getDefaultEncrypt())) {
+                throw new RuntimeException("默认加密策略不能设置为空！");
+            } else {
+                encryptServerClass = new Class<>[] {DefaultCryptStrategy.getDefaultEncrypt()};
+            }
+        }
+        String encryptedValue = fieldBean;
+        for(Class<? extends EncryptService> encryptServiceClazz : encryptServerClass) {
+            EncryptService encryptService = super.getByCache(encryptServiceClazz);
+            encryptedValue = encryptService.encrypt(encryptedValue);
+        }
         List<FieldEncryptSnapshotBo> infos = ThreadLocalUtil.get();
         if (Objects.isNull(infos)) {
             infos = new ArrayList<>();
