@@ -4,8 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.constants.CommonConstants;
@@ -16,6 +14,7 @@ import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.registry.Registry;
 import org.apache.dubbo.registry.RegistryFactory;
 import org.apache.dubbo.registry.integration.RegistryProtocol;
+import org.apache.dubbo.rpc.model.ApplicationModel;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +22,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 
 /**
@@ -42,11 +42,17 @@ public class ManualRegistryToDubboCenter implements ApplicationListener<ContextR
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Map<String, RegistryConfig> registryConfigMap = applicationContext.getBeansOfType(RegistryConfig.class);
+        // 2.5.3 版本的可以通过这个方式获取到
+        /*Map<String, RegistryConfig> registryConfigMap = applicationContext.getBeansOfType(RegistryConfig.class);
         if(Objects.isNull(registryConfigMap) || registryConfigMap.isEmpty()) {
             return;
+        }*/
+        List<RegistryConfig> registryConfigs = ApplicationModel.getConfigManager().getDefaultRegistries();
+        if(CollectionUtils.isEmpty(registryConfigs)) {
+            return;
         }
-        RegistryConfig registryConfig = registryConfigMap.entrySet().iterator().next().getValue();
+        // 一般注册中心只会设置一个
+        RegistryConfig registryConfig = registryConfigs.iterator().next();
         RegistryProtocol registryProtocol = RegistryProtocol.getRegistryProtocol();
         Field field = ReflectionUtils.findField(RegistryProtocol.class, "registryFactory");
         field.setAccessible(true);
