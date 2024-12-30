@@ -5,7 +5,7 @@ import com.hangu.tool.mybatis.secret.bo.FieldEncryptSnapshotBo;
 import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
-import com.hangu.tool.mybatis.secret.util.FieldReflectorUtil;
+import com.hangu.tool.common.util.FieldReflectorUtil;
 import com.hangu.tool.mybatis.secret.util.ThreadLocalUtil;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
@@ -159,7 +159,7 @@ public class FieldEncryptBeforeInterceptor extends AbstractInterceptor {
             if(Objects.isNull(DefaultCryptStrategy.getDefaultEncrypt())) {
                 throw new RuntimeException("默认加密策略不能设置为空！");
             } else {
-                encryptServerClass = new Class<>[] {DefaultCryptStrategy.getDefaultEncrypt()};
+                encryptServerClass = new Class[] {DefaultCryptStrategy.getDefaultEncrypt()};
             }
         }
         String encryptedValue = fieldBean;

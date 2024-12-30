@@ -8,7 +8,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
+import com.hangu.tool.common.util.FieldReflectorUtil;
 import com.hangu.tool.sensitive.annotated.Sensitive;
+import com.hangu.tool.sensitive.config.DefaultSensitiveStrategy;
 import com.hangu.tool.sensitive.service.DesensitizationService;
 import com.hangu.tool.sensitive.service.EncryptService;
 import java.io.IOException;
@@ -17,8 +19,6 @@ import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import org.springframework.beans.BeanUtils;
-import org.springframework.util.ReflectionUtils;
 
 public class CustomStringSerializer extends StdScalarSerializer<String> {
 
@@ -34,7 +34,7 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
         // 获取到当前要解析到的字段的名字
         String name = gen.getOutputContext().getCurrentName();
         Class<?> currentParseObj = gen.getOutputContext().getCurrentValue().getClass();
-        Field field = ReflectionUtils.findField(currentParseObj, name);
+        Field field = FieldReflectorUtil.findField(currentParseObj, name);
         Sensitive sensitive = field.getAnnotation(Sensitive.class);
         if (Objects.nonNull(sensitive)) {
             this.doDesensitization(gen, name, value, sensitive);
@@ -67,12 +67,37 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
 
     private void doDesensitization(JsonGenerator gen, String name, String value, Sensitive sensitive)
         throws IOException {
-        Class<DesensitizationService> desensitizationServiceClass = sensitive.desensitization();
-        DesensitizationService desensitizationService = this.getByCache(desensitizationServiceClass);
-        String desensitizationValue = desensitizationService.desensitization(value);
-        Class<EncryptService> encryptServiceClass = sensitive.encrypt();
-        EncryptService encryptService = this.getByCache(encryptServiceClass);
-        String encryptValue = encryptService.encrypt(value);
+        Class<DesensitizationService>[] desensitizationServiceClasses = sensitive.desensitization();
+        if(Objects.isNull(desensitizationServiceClasses) || desensitizationServiceClasses.length == 0) {
+            Class<? extends DesensitizationService> desensitizationServiceClass = DefaultSensitiveStrategy.getDefaultDesensitization();
+            if(Objects.isNull(desensitizationServiceClass)) {
+                throw new RuntimeException("默认的脱敏策略不能为空！");
+            } else {
+                desensitizationServiceClasses = new Class[] {desensitizationServiceClass};
+            }
+        }
+
+        Class<EncryptService>[] encryptServiceClasses = sensitive.encrypt();
+        if(Objects.isNull(encryptServiceClasses) || encryptServiceClasses.length == 0) {
+            Class<? extends EncryptService> encryptClass = DefaultSensitiveStrategy.getDefaultEncrypt();
+            if(Objects.isNull(encryptClass)) {
+                throw new RuntimeException("默认的加密策略不能为空！");
+            } else {
+                encryptServiceClasses = new Class[] {encryptClass};
+            }
+        }
+
+        String desensitizationValue = value;
+        for(Class<DesensitizationService> desensitizationClass : desensitizationServiceClasses) {
+            DesensitizationService desensitizationService = this.getByCache(desensitizationClass);
+            desensitizationValue = desensitizationService.desensitization(value);
+        }
+
+        String encryptValue = value;
+        for(Class<EncryptService> encryptClass : encryptServiceClasses) {
+            EncryptService encryptService = this.getByCache(encryptClass);
+            encryptValue = encryptService.encrypt(value);
+        }
         gen.writeStartObject();
         gen.writeStringField(name + "Desensitization", desensitizationValue);
         gen.writeStringField(name + "Encrypt", encryptValue);
@@ -84,9 +109,15 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
         if (Objects.nonNull(value)) {
             return (T) value;
         }
-        value = BeanUtils.instantiateClass(clazz);
-        CACHE.put(clazz, value);
-        return (T) value;
+        try {
+            value = clazz.newInstance();
+            CACHE.put(clazz, value);
+            return (T) value;
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

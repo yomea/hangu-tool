@@ -4,7 +4,7 @@ import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
 import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.DecryptService;
-import com.hangu.tool.mybatis.secret.util.FieldReflectorUtil;
+import com.hangu.tool.common.util.FieldReflectorUtil;
 import java.lang.reflect.Field;
 import java.sql.Statement;
 import java.util.List;
@@ -120,7 +120,7 @@ public class FieldDecryptInterceptor extends AbstractInterceptor {
             if(Objects.isNull(DefaultCryptStrategy.getDefaultDecrypt())) {
                 throw new RuntimeException("默认解密策略不能设置为空！");
             } else {
-                decryptServerClass = new Class<>[] {DefaultCryptStrategy.getDefaultDecrypt()};
+                decryptServerClass = new Class[] {DefaultCryptStrategy.getDefaultDecrypt()};
             }
         }
         String decryptedValue = fieldBean;

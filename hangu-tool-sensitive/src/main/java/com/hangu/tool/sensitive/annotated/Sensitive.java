@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Sensitive {
 
-    Class<DesensitizationService> desensitization();
+    Class<DesensitizationService>[] desensitization() default {};
 
-    Class<EncryptService> encrypt();
+    Class<EncryptService>[] encrypt() default {};
 }
