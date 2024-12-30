@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.hangu.tool.mybatis.secret.AutoMybatisInterceptorSpringConfig
