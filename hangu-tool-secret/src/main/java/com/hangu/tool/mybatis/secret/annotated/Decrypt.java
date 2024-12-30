@@ -1,6 +1,7 @@
 package com.hangu.tool.mybatis.secret.annotated;
 
 import com.hangu.tool.mybatis.secret.server.DecryptService;
+import com.hangu.tool.mybatis.secret.server.impl.DefaultDecryptService;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,5 +19,5 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Decrypt {
 
-    Class<DecryptService> decrypt();
+    Class<? extends DecryptService> decrypt() default DefaultDecryptService.class;
 }

@@ -149,7 +149,7 @@ public class FieldEncryptBeforeInterceptor extends AbstractInterceptor {
         if (Objects.isNull(encryptAnnotation)) {
             return fieldBean;
         }
-        Class<EncryptService> cryptoServerClass = encryptAnnotation.encrypt();
+        Class<? extends EncryptService> cryptoServerClass = encryptAnnotation.encrypt();
         EncryptService encryptService = super.getByCache(cryptoServerClass);
         String encryptedValue = encryptService.encrypt(fieldBean);
         List<FieldEncryptSnapshotBo> infos = ThreadLocalUtil.get();

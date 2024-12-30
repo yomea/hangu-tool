@@ -110,7 +110,7 @@ public class FieldDecryptInterceptor extends AbstractInterceptor {
         if (Objects.isNull(deCryptoAnnotation)) {
             return fieldBean;
         }
-        Class<DecryptService> decryptServerClass = deCryptoAnnotation.decrypt();
+        Class<? extends DecryptService> decryptServerClass = deCryptoAnnotation.decrypt();
         DecryptService decryptService = super.getByCache(decryptServerClass);
         String decryptedValue = decryptService.decrypt(fieldBean);
         return decryptedValue;
