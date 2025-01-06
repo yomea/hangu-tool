@@ -35,8 +35,9 @@ public class AESUtil {
     // 解密:
     public static String decryptECB(String key, String input) throws GeneralSecurityException {
         byte[] bytes = AESUtil.decryptECB(key128, Base64.getDecoder().decode(input));
-        return new String( bytes, StandardCharsets.UTF_8);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
+
     // 解密:
     public static byte[] decryptECB(String key, byte[] input) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");

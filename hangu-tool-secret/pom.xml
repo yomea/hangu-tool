@@ -3,8 +3,8 @@
   <artifactId>hangu-tool-secret</artifactId>
   <dependencies>
     <dependency>
-      <groupId>com.hangu.tool</groupId>
       <artifactId>hangu-tool-common</artifactId>
+      <groupId>com.hangu.tool</groupId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>

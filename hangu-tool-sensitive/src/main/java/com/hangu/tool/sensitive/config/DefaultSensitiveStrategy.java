@@ -21,7 +21,7 @@ public class DefaultSensitiveStrategy {
 
     public static void setDefaultEncrypt(
         Class<? extends EncryptService> defaultEncrypt) {
-        if(Objects.isNull(defaultEncrypt)) {
+        if (Objects.isNull(defaultEncrypt)) {
             throw new RuntimeException("默认加密策略不能为空！");
         }
         DefaultSensitiveStrategy.defaultEncrypt = defaultEncrypt;
@@ -33,7 +33,7 @@ public class DefaultSensitiveStrategy {
 
     public static void setDefaultDesensitization(
         Class<? extends DesensitizationService> defaultDesensitization) {
-        if(Objects.isNull(defaultDesensitization)) {
+        if (Objects.isNull(defaultDesensitization)) {
             throw new RuntimeException("默认脱敏策略不能为空！");
         }
         DefaultSensitiveStrategy.defaultDesensitization = defaultDesensitization;

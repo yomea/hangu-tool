@@ -68,33 +68,33 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
     private void doDesensitization(JsonGenerator gen, String name, String value, Sensitive sensitive)
         throws IOException {
         Class<DesensitizationService>[] desensitizationServiceClasses = sensitive.desensitization();
-        if(Objects.isNull(desensitizationServiceClasses) || desensitizationServiceClasses.length == 0) {
+        if (Objects.isNull(desensitizationServiceClasses) || desensitizationServiceClasses.length == 0) {
             Class<? extends DesensitizationService> desensitizationServiceClass = DefaultSensitiveStrategy.getDefaultDesensitization();
-            if(Objects.isNull(desensitizationServiceClass)) {
+            if (Objects.isNull(desensitizationServiceClass)) {
                 throw new RuntimeException("默认的脱敏策略不能为空！");
             } else {
-                desensitizationServiceClasses = new Class[] {desensitizationServiceClass};
+                desensitizationServiceClasses = new Class[]{desensitizationServiceClass};
             }
         }
 
         Class<EncryptService>[] encryptServiceClasses = sensitive.encrypt();
-        if(Objects.isNull(encryptServiceClasses) || encryptServiceClasses.length == 0) {
+        if (Objects.isNull(encryptServiceClasses) || encryptServiceClasses.length == 0) {
             Class<? extends EncryptService> encryptClass = DefaultSensitiveStrategy.getDefaultEncrypt();
-            if(Objects.isNull(encryptClass)) {
+            if (Objects.isNull(encryptClass)) {
                 throw new RuntimeException("默认的加密策略不能为空！");
             } else {
-                encryptServiceClasses = new Class[] {encryptClass};
+                encryptServiceClasses = new Class[]{encryptClass};
             }
         }
 
         String desensitizationValue = value;
-        for(Class<DesensitizationService> desensitizationClass : desensitizationServiceClasses) {
+        for (Class<DesensitizationService> desensitizationClass : desensitizationServiceClasses) {
             DesensitizationService desensitizationService = this.getByCache(desensitizationClass);
             desensitizationValue = desensitizationService.desensitization(value);
         }
 
         String encryptValue = value;
-        for(Class<EncryptService> encryptClass : encryptServiceClasses) {
+        for (Class<EncryptService> encryptClass : encryptServiceClasses) {
             EncryptService encryptService = this.getByCache(encryptClass);
             encryptValue = encryptService.encrypt(value);
         }

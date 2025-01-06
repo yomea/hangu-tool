@@ -2,7 +2,6 @@ package com.hangu.tool.mybatis.secret.annotated;
 
 import com.hangu.tool.mybatis.secret.server.DecryptService;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
-import com.hangu.tool.mybatis.secret.server.impl.DefaultEncryptService;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -24,6 +23,7 @@ public @interface EnOrDecrypt {
      * 被标注的字段是否需要加密
      */
     boolean encrypt() default true;
+
     /**
      * 被标注的字段是否需要解密
      */
