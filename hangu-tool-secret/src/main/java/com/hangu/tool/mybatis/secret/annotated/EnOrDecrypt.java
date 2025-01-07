@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @author wuzhenhong
  * @date 2024/12/27 9:48
  */
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface EnOrDecrypt {

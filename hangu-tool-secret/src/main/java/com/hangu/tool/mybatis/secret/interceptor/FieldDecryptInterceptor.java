@@ -5,6 +5,7 @@ import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
 import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.DecryptService;
+import com.hangu.tool.mybatis.secret.util.MetaObjectCryptoUtil;
 import java.lang.reflect.Field;
 import java.sql.Statement;
 import java.util.List;
@@ -111,24 +112,6 @@ public class FieldDecryptInterceptor extends AbstractInterceptor {
         if (Objects.isNull(deCryptoAnnotation)) {
             return fieldBean;
         }
-        boolean decrypt = deCryptoAnnotation.decrypt();
-        if (!decrypt) {
-            return fieldBean;
-        }
-        Class<? extends DecryptService>[] decryptServerClass = deCryptoAnnotation.decryptClass();
-        if (Objects.isNull(decryptServerClass) || decryptServerClass.length == 0) {
-            if (Objects.isNull(DefaultCryptStrategy.getDefaultDecrypt())) {
-                throw new RuntimeException("默认解密策略不能设置为空！");
-            } else {
-                decryptServerClass = new Class[]{DefaultCryptStrategy.getDefaultDecrypt()};
-            }
-        }
-        String decryptedValue = fieldBean;
-        for (Class<? extends DecryptService> decryptServiceClazz : decryptServerClass) {
-            DecryptService decryptService = super.getByCache(decryptServiceClazz);
-            decryptedValue = decryptService.decrypt(decryptedValue);
-        }
-
-        return decryptedValue;
+        return MetaObjectCryptoUtil.decryptNess(deCryptoAnnotation, fieldBean);
     }
 }

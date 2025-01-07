@@ -6,6 +6,7 @@ import com.hangu.tool.mybatis.secret.bo.FieldEncryptSnapshotBo;
 import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
+import com.hangu.tool.mybatis.secret.util.MetaObjectCryptoUtil;
 import com.hangu.tool.mybatis.secret.util.ThreadLocalUtil;
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
@@ -150,23 +151,7 @@ public class FieldEncryptBeforeInterceptor extends AbstractInterceptor {
         if (Objects.isNull(enOrDecryptAnnotation)) {
             return fieldBean;
         }
-        boolean encrypt = enOrDecryptAnnotation.encrypt();
-        if (!encrypt) {
-            return fieldBean;
-        }
-        Class<? extends EncryptService>[] encryptServerClass = enOrDecryptAnnotation.encryptClass();
-        if (Objects.isNull(encryptServerClass) || encryptServerClass.length == 0) {
-            if (Objects.isNull(DefaultCryptStrategy.getDefaultEncrypt())) {
-                throw new RuntimeException("默认加密策略不能设置为空！");
-            } else {
-                encryptServerClass = new Class[]{DefaultCryptStrategy.getDefaultEncrypt()};
-            }
-        }
-        String encryptedValue = fieldBean;
-        for (Class<? extends EncryptService> encryptServiceClazz : encryptServerClass) {
-            EncryptService encryptService = super.getByCache(encryptServiceClazz);
-            encryptedValue = encryptService.encrypt(encryptedValue);
-        }
+        String encryptedValue = MetaObjectCryptoUtil.encryptNess(enOrDecryptAnnotation, fieldBean);
         List<FieldEncryptSnapshotBo> infos = ThreadLocalUtil.get();
         if (Objects.isNull(infos)) {
             infos = new ArrayList<>();

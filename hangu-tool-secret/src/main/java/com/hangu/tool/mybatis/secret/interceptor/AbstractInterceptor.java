@@ -1,15 +1,8 @@
 package com.hangu.tool.mybatis.secret.interceptor;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+import com.hangu.tool.mybatis.secret.util.MetaObjectCryptoUtil;
 import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.reflection.DefaultReflectorFactory;
 import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.ReflectorFactory;
-import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
-import org.apache.ibatis.reflection.factory.ObjectFactory;
-import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
 
 /**
  * @author wuzhenhong
@@ -17,24 +10,12 @@ import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
  */
 public abstract class AbstractInterceptor implements Interceptor {
 
-    protected static final ObjectFactory OBJECT_FACTORY = new DefaultObjectFactory();
-    protected static final org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
-    protected static final ReflectorFactory REFLECTOR_FACTORY = new DefaultReflectorFactory();
-    protected final Map<Class<?>, Object> CACHE = new ConcurrentHashMap<>(8192);
-
     protected <T> T getByCache(Class<?> clazz) {
-        Object value = CACHE.get(clazz);
-        if (Objects.nonNull(value)) {
-            return (T) value;
-        }
-        value = OBJECT_FACTORY.create(clazz);
-        CACHE.put(clazz, value);
-        return (T) value;
+        return MetaObjectCryptoUtil.getByCache(clazz);
     }
 
     protected MetaObject forObject(Object object) {
-        return MetaObject.forObject(object, OBJECT_FACTORY, OBJECT_WRAPPER_FACTORY,
-            REFLECTOR_FACTORY);
+        return MetaObjectCryptoUtil.forObject(object);
     }
 
 }
