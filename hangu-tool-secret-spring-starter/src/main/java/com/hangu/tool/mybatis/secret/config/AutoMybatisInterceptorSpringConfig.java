@@ -1,6 +1,7 @@
 package com.hangu.tool.mybatis.secret.config;
 
 import com.hangu.tool.mybatis.secret.processor.ConfigInterceptorBeanPostProcessor;
+import com.hangu.tool.mybatis.secret.processor.ConfigMapperBeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -17,5 +18,10 @@ public class AutoMybatisInterceptorSpringConfig {
     @Bean
     public ConfigInterceptorBeanPostProcessor configInterceptorBeanPostProcessor() {
         return new ConfigInterceptorBeanPostProcessor();
+    }
+
+    @Bean
+    public ConfigMapperBeanPostProcessor configMapperBeanPostProcessor() {
+        return new ConfigMapperBeanPostProcessor();
     }
 }
