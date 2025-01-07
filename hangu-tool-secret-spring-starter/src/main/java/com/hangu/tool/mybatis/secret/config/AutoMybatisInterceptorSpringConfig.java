@@ -1,5 +1,6 @@
 package com.hangu.tool.mybatis.secret.config;
 
+import com.hangu.tool.mybatis.secret.aspect.EnOrDecryptAspect;
 import com.hangu.tool.mybatis.secret.processor.ConfigInterceptorBeanPostProcessor;
 import com.hangu.tool.mybatis.secret.processor.ConfigMapperBeanPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -14,6 +15,11 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 public class AutoMybatisInterceptorSpringConfig {
+
+    @Bean
+    public EnOrDecryptAspect cryptoAspect() {
+        return new EnOrDecryptAspect();
+    }
 
     @Bean
     public ConfigInterceptorBeanPostProcessor configInterceptorBeanPostProcessor() {
