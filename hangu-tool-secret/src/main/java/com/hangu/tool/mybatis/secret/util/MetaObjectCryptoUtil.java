@@ -1,5 +1,6 @@
 package com.hangu.tool.mybatis.secret.util;
 
+import com.hangu.tool.common.util.SimpleHashMap;
 import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
 import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
 import com.hangu.tool.mybatis.secret.server.DecryptService;
@@ -21,7 +22,7 @@ public final class MetaObjectCryptoUtil {
     private static final ObjectFactory OBJECT_FACTORY = new DefaultObjectFactory();
     private static final org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
     private static final ReflectorFactory REFLECTOR_FACTORY = new DefaultReflectorFactory();
-    private static final SimpleHashMap<Class<?>, Object> CACHE = new SimpleHashMap<>();
+    private static final SimpleHashMap<Class<?>, Object> CACHE = new SimpleHashMap<>(16);
 
     private MetaObjectCryptoUtil() {
         throw new RuntimeException("do not instance!");

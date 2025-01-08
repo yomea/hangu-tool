@@ -1,4 +1,4 @@
-package com.hangu.tool.mybatis.secret.util;
+package com.hangu.tool.common.util;
 
 import java.util.Arrays;
 
