@@ -2,6 +2,7 @@ package com.hangu.tool.mybatis.secret.interceptor;
 
 import com.hangu.tool.mybatis.secret.bo.FieldEncryptSnapshotBo;
 import com.hangu.tool.mybatis.secret.constant.MybatisFieldNameCons;
+import com.hangu.tool.mybatis.secret.util.MetaObjectCryptoUtil;
 import java.lang.reflect.Field;
 import java.sql.Statement;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlCommandType;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
@@ -23,13 +25,13 @@ import org.apache.ibatis.reflection.MetaObject;
  */
 @Intercepts({@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {
     Statement.class})})
-public class FieldEncryptAfterInterceptor extends AbstractInterceptor {
+public class FieldEncryptAfterInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Object returnVal = invocation.proceed();
         ResultSetHandler resultSetHandler = (ResultSetHandler) invocation.getTarget();
-        MetaObject metaObject = super.forObject(resultSetHandler);
+        MetaObject metaObject = MetaObjectCryptoUtil.forObject(resultSetHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue(MybatisFieldNameCons.MAPPED_STATEMENT);
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
         // 只处理dml语句
