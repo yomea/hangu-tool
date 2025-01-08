@@ -7,10 +7,14 @@ import java.util.List;
  * @author wuzhenhong
  * @date 2024/12/27 9:48
  */
-public class ThreadLocalUtil {
+public final class ThreadLocalUtil {
 
     private static final ThreadLocal<List<FieldEncryptSnapshotBo>>
         THREAD_LOCAL = new ThreadLocal<>();
+
+    private ThreadLocalUtil() {
+        throw new RuntimeException("do not instance!");
+    }
 
     public static void set(List<FieldEncryptSnapshotBo> list) {
         THREAD_LOCAL.set(list);

@@ -1,6 +1,6 @@
 package com.hangu.tool.sensitive.service.impl;
 
-import com.hangu.tool.mybatis.secret.util.AESUtil;
+import com.hangu.tool.common.util.AESUtil;
 import com.hangu.tool.sensitive.service.EncryptService;
 import java.security.GeneralSecurityException;
 

@@ -39,7 +39,7 @@ public class JacksonBodyAdviceUtil {
         OBJECT_MAPPER.registerModule(module);
     }
 
-    public static final String writeValueAsString(Object obj) {
+    public static String writeValueAsString(Object obj) {
         try {
             return OBJECT_MAPPER.writeValueAsString(obj);
         } catch (JsonProcessingException e) {

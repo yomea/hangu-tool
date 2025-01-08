@@ -16,14 +16,18 @@ import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
  * @author wuzhenhong
  * @date 2025/1/6 17:27
  */
-public class MetaObjectCryptoUtil {
+public final class MetaObjectCryptoUtil {
 
     private static final ObjectFactory OBJECT_FACTORY = new DefaultObjectFactory();
     private static final org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
     private static final ReflectorFactory REFLECTOR_FACTORY = new DefaultReflectorFactory();
     private static final SimpleHashMap<Class<?>, Object> CACHE = new SimpleHashMap<>();
 
-    public static  <T> T getByCache(Class<?> clazz) {
+    private MetaObjectCryptoUtil() {
+        throw new RuntimeException("do not instance!");
+    }
+
+    public static <T> T getByCache(Class<?> clazz) {
         Object value = CACHE.get(clazz);
         if (Objects.nonNull(value)) {
             return (T) value;
