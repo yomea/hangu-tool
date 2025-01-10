@@ -50,6 +50,7 @@
     <module>hangu-tool-sensitive-spring-starter</module>
     <module>hangu-tool-sensitive-spring</module>
     <module>hangu-tool-center</module>
+    <module>hangu-tool-demo</module>
   </modules>
 
   <packaging>pom</packaging>
@@ -65,8 +66,8 @@
     <lombok-version>1.18.20</lombok-version>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
-    <mybatis-spring-version>2.0.6</mybatis-spring-version>
-    <mybatis-version>3.5.7</mybatis-version>
+    <mybatis-spring-version>2.0.7</mybatis-spring-version>
+    <mybatis-version>3.5.10</mybatis-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
