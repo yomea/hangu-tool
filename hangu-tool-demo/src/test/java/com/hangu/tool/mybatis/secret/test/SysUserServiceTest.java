@@ -44,7 +44,7 @@ public class SysUserServiceTest {
     public void query() {
 
         SysUserInfo sysUserInfo = sysUserInfoService.lambdaQuery().eq(SysUserInfo::getAccount, "junmo")
-                .one();
+            .one();
 
         System.out.println(JSONUtil.toJsonStr(sysUserInfo));
     }

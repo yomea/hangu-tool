@@ -4,7 +4,6 @@ import com.hangu.tool.mybatis.secret.server.DecryptService;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
 import com.hangu.tool.mybatis.secret.server.impl.DefaultDecryptService;
 import com.hangu.tool.mybatis.secret.server.impl.DefaultEncryptService;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -33,7 +32,7 @@ public class DefaultCryptStrategy {
 
     public static void loadDefaultCrypto() {
         try {
-            URL url = DefaultCryptStrategy.class.getClassLoader().getResource(File.separator + CONFIG_NAME);
+            URL url = DefaultCryptStrategy.class.getClassLoader().getResource(CONFIG_NAME);
             if (Objects.nonNull(url)) {
                 Properties properties = new Properties();
                 properties.load(url.openStream());

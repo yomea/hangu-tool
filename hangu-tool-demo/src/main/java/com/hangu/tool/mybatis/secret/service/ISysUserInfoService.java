@@ -14,5 +14,6 @@ import com.hangu.tool.mybatis.secret.dao.entity.SysUserInfo;
 public interface ISysUserInfoService extends IService<SysUserInfo> {
 
     int updatePasswordByAccount(String password, String account);
+
     int updatePasswordByAccountSqlSession(String password, String account);
 }

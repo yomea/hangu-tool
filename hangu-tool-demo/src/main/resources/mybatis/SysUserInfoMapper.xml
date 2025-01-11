@@ -16,7 +16,7 @@
 
   <update id="updatePasswordByAccount">
     update sys_user_info
-      set password = #{password}
+    set password = #{password}
     where account = #{account}
   </update>
 </mapper>

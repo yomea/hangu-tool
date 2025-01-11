@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrappe
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
 import com.hangu.tool.common.util.FieldReflectorUtil;
+import com.hangu.tool.common.util.SimpleHashMap;
 import com.hangu.tool.sensitive.annotated.Sensitive;
 import com.hangu.tool.sensitive.config.DefaultSensitiveStrategy;
 import com.hangu.tool.sensitive.service.DesensitizationService;
@@ -16,13 +17,11 @@ import com.hangu.tool.sensitive.service.EncryptService;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomStringSerializer extends StdScalarSerializer<String> {
 
-    private final Map<Class<?>, Object> CACHE = new ConcurrentHashMap<>(8192);
+    private final SimpleHashMap<Class<?>, Object> CACHE = new SimpleHashMap<>(16);
 
     public CustomStringSerializer() {
         super(String.class, false);

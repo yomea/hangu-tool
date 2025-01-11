@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.hangu.tool.sensitive.config.DefaultSensitiveStrategy;
 import com.hangu.tool.sensitive.serializer.CustomStringSerializer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ public class JacksonBodyAdviceUtil {
     private static ObjectMapper OBJECT_MAPPER;
 
     static {
+        DefaultSensitiveStrategy.loadDefaultSensitive();
         // 默认的
         OBJECT_MAPPER = new ObjectMapper();
         OBJECT_MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));

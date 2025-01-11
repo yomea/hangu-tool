@@ -14,6 +14,8 @@ public class AutoSensitiveConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        // 使用前加载下默认配置
+        DefaultSensitiveStrategy.loadDefaultSensitive();
         return jacksonObjectMapperBuilder ->
             jacksonObjectMapperBuilder
                 .serializerByType(String.class, new CustomStringSerializer());
