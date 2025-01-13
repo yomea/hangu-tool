@@ -18,8 +18,6 @@ import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Signature;
 
 /**
- * insert与update时对数据加密
- *
  * @author wuzhenhong
  * @date 2024/12/27 9:48
  */
