@@ -42,12 +42,12 @@ public class NullSerializeValueFilter implements ContextValueFilter {
         if(Objects.isNull(supplier)) {
             try {
                 supplier = functionClass.newInstance();
+                //多线程下可能会重复创建，但不影响正确性
+                cache.put(functionClass, supplier);
             } catch (Exception e) {
                 throw new RuntimeException("fastJson 空值序列化器构建失败！", e);
             }
         }
-        //多线程下可能会重复创建，但不影响正确性
-        cache.put(functionClass, supplier);
         return supplier.get();
     }
 }

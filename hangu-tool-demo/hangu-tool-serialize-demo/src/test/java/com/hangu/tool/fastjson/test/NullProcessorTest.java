@@ -3,7 +3,6 @@ package com.hangu.tool.fastjson.test;
 import com.alibaba.fastjson.JSONObject;
 import com.hangu.tool.fastjson.entity.User;
 import com.hangu.tool.serialize.fastjson.filter.NullSerializeValueFilter;
-import java.math.BigDecimal;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -20,6 +19,8 @@ public class NullProcessorTest {
         User user = new User();
         user.setName("小红");
         user.setMoney(null);
-        System.out.println(JSONObject.toJSONString(user, new NullSerializeValueFilter()));
+        NullSerializeValueFilter filter = new NullSerializeValueFilter();
+        System.out.println(JSONObject.toJSONString(user, filter));
+        System.out.println(JSONObject.toJSONString(user, filter));
     }
 }
