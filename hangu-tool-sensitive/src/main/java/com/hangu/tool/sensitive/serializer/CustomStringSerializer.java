@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
 import com.hangu.tool.common.util.FieldReflectorUtil;
 import com.hangu.tool.common.util.SimpleHashMap;
 import com.hangu.tool.sensitive.annotated.Sensitive;
-import com.hangu.tool.sensitive.config.DefaultSensitiveStrategy;
+import com.hangu.tool.sensitive.config.DefaultSensitiveConfig;
 import com.hangu.tool.sensitive.service.DesensitizationService;
 import com.hangu.tool.sensitive.service.EncryptService;
 import java.io.IOException;
@@ -68,7 +68,7 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
         throws IOException {
         Class<DesensitizationService>[] desensitizationServiceClasses = sensitive.desensitization();
         if (Objects.isNull(desensitizationServiceClasses) || desensitizationServiceClasses.length == 0) {
-            Class<? extends DesensitizationService> desensitizationServiceClass = DefaultSensitiveStrategy.getDefaultDesensitization();
+            Class<? extends DesensitizationService> desensitizationServiceClass = DefaultSensitiveConfig.getDefaultDesensitization();
             if (Objects.isNull(desensitizationServiceClass)) {
                 throw new RuntimeException("默认的脱敏策略不能为空！");
             } else {
@@ -78,7 +78,7 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
 
         Class<EncryptService>[] encryptServiceClasses = sensitive.encrypt();
         if (Objects.isNull(encryptServiceClasses) || encryptServiceClasses.length == 0) {
-            Class<? extends EncryptService> encryptClass = DefaultSensitiveStrategy.getDefaultEncrypt();
+            Class<? extends EncryptService> encryptClass = DefaultSensitiveConfig.getDefaultEncrypt();
             if (Objects.isNull(encryptClass)) {
                 throw new RuntimeException("默认的加密策略不能为空！");
             } else {

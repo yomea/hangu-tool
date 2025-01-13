@@ -51,6 +51,8 @@
     <module>hangu-tool-sensitive-spring</module>
     <module>hangu-tool-center</module>
     <module>hangu-tool-demo</module>
+    <module>hangu-tool-demo/hangu-tool-secret-demo</module>
+    <module>hangu-tool-demo/hangu-tool-sensitive-demo</module>
   </modules>
 
   <packaging>pom</packaging>

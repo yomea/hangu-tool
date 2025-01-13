@@ -1,99 +1,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>hangu-tool-demo</artifactId>
-  <dependencies>
-
-    <dependency>
-      <artifactId>hangu-tool-secret-spring-starter</artifactId>
-      <groupId>com.hangu.tool</groupId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>hangu-tool-sensitive-spring-starter</artifactId>
-      <groupId>com.hangu.tool</groupId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.hangu.tool</groupId>
-      <artifactId>hangu-tool-sensitive-spring</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>mybatis-plus-boot-starter</artifactId>
-      <groupId>com.baomidou</groupId>
-      <version>3.5.3.1</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>druid-spring-boot-starter</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring-boot-autoconfigure</artifactId>
-          <groupId>org.springframework.boot</groupId>
-        </exclusion>
-      </exclusions>
-      <groupId>com.alibaba</groupId>
-      <version>1.1.13</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>mysql-connector-java</artifactId>
-      <groupId>mysql</groupId>
-      <version>8.0.28</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>junit-vintage-engine</artifactId>
-          <groupId>org.junit.vintage</groupId>
-        </exclusion>
-      </exclusions>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <artifactId>junit</artifactId>
-      <groupId>junit</groupId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <artifactId>spring-boot-starter-aop</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-starter-jdbc</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <version>1.18.20</version>
-    </dependency>
-
-    <dependency>
-      <artifactId>hutool-all</artifactId>
-      <groupId>cn.hutool</groupId>
-      <version>5.3.10</version>
-    </dependency>
-
-  </dependencies>
-
   <modelVersion>4.0.0</modelVersion>
   <name>hangu-tool-demo</name>
 
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.hangu.tool</groupId>
@@ -105,4 +16,42 @@
   </properties>
 
   <url>http://maven.apache.org</url>
+
+  <modules>
+    <module>hangu-tool-secret-demo</module>
+    <module>hangu-tool-sensitive-demo</module>
+    <module>hangu-tool-center-demo</module>
+  </modules>
+
+    <dependencies>
+      <dependency>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <exclusions>
+          <exclusion>
+            <artifactId>junit-vintage-engine</artifactId>
+            <groupId>org.junit.vintage</groupId>
+          </exclusion>
+        </exclusions>
+        <groupId>org.springframework.boot</groupId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <artifactId>junit</artifactId>
+        <groupId>junit</groupId>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <artifactId>lombok</artifactId>
+        <groupId>org.projectlombok</groupId>
+        <version>1.18.20</version>
+      </dependency>
+
+      <dependency>
+        <artifactId>hutool-all</artifactId>
+        <groupId>cn.hutool</groupId>
+        <version>5.3.10</version>
+      </dependency>
+
+    </dependencies>
 </project>

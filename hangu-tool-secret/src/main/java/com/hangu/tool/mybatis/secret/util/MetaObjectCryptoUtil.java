@@ -2,7 +2,7 @@ package com.hangu.tool.mybatis.secret.util;
 
 import com.hangu.tool.common.util.SimpleHashMap;
 import com.hangu.tool.mybatis.secret.annotated.EnOrDecrypt;
-import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
+import com.hangu.tool.mybatis.secret.config.DefaultCryptoConfig;
 import com.hangu.tool.mybatis.secret.server.DecryptService;
 import com.hangu.tool.mybatis.secret.server.EncryptService;
 import java.util.Objects;
@@ -56,10 +56,10 @@ public final class MetaObjectCryptoUtil {
         }
         Class<? extends EncryptService>[] encryptServerClass = enOrDecryptAnnotation.encryptClass();
         if (Objects.isNull(encryptServerClass) || encryptServerClass.length == 0) {
-            if (Objects.isNull(DefaultCryptStrategy.getDefaultEncrypt())) {
+            if (Objects.isNull(DefaultCryptoConfig.getDefaultEncrypt())) {
                 throw new RuntimeException("默认加密策略不能设置为空！");
             } else {
-                encryptServerClass = new Class[]{DefaultCryptStrategy.getDefaultEncrypt()};
+                encryptServerClass = new Class[]{DefaultCryptoConfig.getDefaultEncrypt()};
             }
         }
         String encryptedValue = value;
@@ -83,10 +83,10 @@ public final class MetaObjectCryptoUtil {
         }
         Class<? extends DecryptService>[] decryptServerClass = deCryptoAnnotation.decryptClass();
         if (Objects.isNull(decryptServerClass) || decryptServerClass.length == 0) {
-            if (Objects.isNull(DefaultCryptStrategy.getDefaultDecrypt())) {
+            if (Objects.isNull(DefaultCryptoConfig.getDefaultDecrypt())) {
                 throw new RuntimeException("默认解密策略不能设置为空！");
             } else {
-                decryptServerClass = new Class[]{DefaultCryptStrategy.getDefaultDecrypt()};
+                decryptServerClass = new Class[]{DefaultCryptoConfig.getDefaultDecrypt()};
             }
         }
         String decryptedValue = value;

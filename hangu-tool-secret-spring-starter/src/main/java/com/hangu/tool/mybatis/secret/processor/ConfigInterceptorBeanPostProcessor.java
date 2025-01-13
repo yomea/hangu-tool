@@ -1,6 +1,6 @@
 package com.hangu.tool.mybatis.secret.processor;
 
-import com.hangu.tool.mybatis.secret.config.DefaultCryptStrategy;
+import com.hangu.tool.mybatis.secret.config.DefaultCryptoConfig;
 import com.hangu.tool.mybatis.secret.interceptor.FieldDecryptInterceptor;
 import com.hangu.tool.mybatis.secret.interceptor.FieldEncryptInterceptor;
 import org.apache.ibatis.session.Configuration;
@@ -19,7 +19,7 @@ public class ConfigInterceptorBeanPostProcessor implements BeanPostProcessor {
         if (bean instanceof SqlSessionFactory) {
             // 会进入该方法的入口
             // org.springframework.beans.factory.support.FactoryBeanRegistrySupport.getObjectFromFactoryBean
-            DefaultCryptStrategy.loadDefaultCrypto();
+            DefaultCryptoConfig.loadDefaultCrypto();
             SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) bean;
             Configuration configuration = sqlSessionFactory.getConfiguration();
             FieldEncryptInterceptor fieldEncryptInterceptor = new FieldEncryptInterceptor();
