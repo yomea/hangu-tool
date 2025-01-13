@@ -35,7 +35,7 @@ public class FieldDecryptInterceptor implements Interceptor {
         MetaObject metaObject = MetaObjectCryptoUtil.forObject(resultSetHandler);
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue(MybatisFieldNameCons.MAPPED_STATEMENT);
         SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
-        // 只处理dml语句
+        // 只处理select语句
         if (SqlCommandType.SELECT == sqlCommandType) {
             this.doGetDecryptVal(returnVal, null);
         }
