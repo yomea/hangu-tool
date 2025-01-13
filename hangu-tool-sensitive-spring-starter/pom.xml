@@ -1,6 +1,23 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>hangu-tool-sensitive-spring-starter</artifactId>
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>hangu-tool-sensitive-spring-starter</name>
+  <packaging>jar</packaging>
+
+  <parent>
+    <artifactId>parent</artifactId>
+    <groupId>com.hangu.tool</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <url>http://maven.apache.org</url>
+
   <dependencies>
     <dependency>
       <artifactId>spring-boot-starter</artifactId>
@@ -19,20 +36,4 @@
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>hangu-tool-sensitive-spring-starter</name>
-  <packaging>jar</packaging>
-
-  <parent>
-    <artifactId>parent</artifactId>
-    <groupId>com.hangu.tool</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <url>http://maven.apache.org</url>
 </project>

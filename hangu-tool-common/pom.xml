@@ -1,18 +1,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>hangu-tool-common</artifactId>
-  <dependencies>
-    <dependency>
-      <artifactId>junit</artifactId>
-      <groupId>junit</groupId>
-      <scope>test</scope>
-      <version>3.8.1</version>
-    </dependency>
-  </dependencies>
   <modelVersion>4.0.0</modelVersion>
 
   <name>hangu-tool-common</name>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <parent>
     <artifactId>parent</artifactId>
@@ -25,4 +17,7 @@
   </properties>
 
   <url>http://maven.apache.org</url>
+
+  <dependencies>
+  </dependencies>
 </project>

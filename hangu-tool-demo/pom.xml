@@ -21,6 +21,7 @@
     <module>hangu-tool-secret-demo</module>
     <module>hangu-tool-sensitive-demo</module>
     <module>hangu-tool-center-demo</module>
+    <module>hangu-tool-serialize-demo</module>
   </modules>
 
     <dependencies>

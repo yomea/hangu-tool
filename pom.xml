@@ -53,6 +53,7 @@
     <module>hangu-tool-demo</module>
     <module>hangu-tool-demo/hangu-tool-secret-demo</module>
     <module>hangu-tool-demo/hangu-tool-sensitive-demo</module>
+    <module>hangu-tool-serialize</module>
   </modules>
 
   <packaging>pom</packaging>
