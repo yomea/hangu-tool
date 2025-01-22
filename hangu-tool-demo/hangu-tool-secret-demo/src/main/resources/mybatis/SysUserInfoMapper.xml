@@ -19,4 +19,31 @@
     set password = #{password}
     where account = #{account}
   </update>
+
+  <delete id="deleteByPassword">
+    delete
+    from sys_user_info
+    where password =
+          #{password}
+  </delete>
+
+  <update id="updateByPassword">
+    update sys_user_info
+    set password = #{newPassword}
+    where password = #{oldPassword}
+  </update>
+
+  <update id="updateEntityByPassword">
+    update sys_user_info
+    set password = #{update.password},
+        avatar   = #{update.avatar}
+    where password = #{oldPassword}
+  </update>
+
+  <select id="queryByPassword" parameterType="com.hangu.tool.secret.dao.entity.SysUserInfo"
+    resultType="com.hangu.tool.secret.dao.entity.SysUserInfo">
+    select *
+    from sys_user_info
+    where password = #{password}
+  </select>
 </mapper>
