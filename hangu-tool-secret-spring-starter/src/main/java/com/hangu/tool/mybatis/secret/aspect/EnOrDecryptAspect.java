@@ -32,9 +32,7 @@ public class EnOrDecryptAspect {
                     EnOrDecrypt enOrDecrypt = parameter.getAnnotation(EnOrDecrypt.class);
                     Object value = args[index];
                     if (Objects.nonNull(enOrDecrypt) && value instanceof String) {
-                        if (Objects.nonNull(value)) {
-                            args[index] = MetaObjectCryptoUtil.encryptNess(enOrDecrypt, (String) value);
-                        }
+                        args[index] = MetaObjectCryptoUtil.encryptNess(enOrDecrypt, (String) value);
 
                     }
                     index++;

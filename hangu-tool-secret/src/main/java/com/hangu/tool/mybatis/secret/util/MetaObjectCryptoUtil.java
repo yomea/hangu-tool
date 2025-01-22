@@ -47,9 +47,6 @@ public final class MetaObjectCryptoUtil {
         if (Objects.isNull(value) || Objects.isNull(enOrDecryptAnnotation)) {
             return value;
         }
-        if (Objects.isNull(enOrDecryptAnnotation)) {
-            return value;
-        }
         boolean encrypt = enOrDecryptAnnotation.encrypt();
         if (!encrypt) {
             return value;
@@ -72,9 +69,6 @@ public final class MetaObjectCryptoUtil {
 
     public static Object decryptNess(EnOrDecrypt deCryptoAnnotation, String value) {
         if (Objects.isNull(value) || Objects.isNull(deCryptoAnnotation)) {
-            return value;
-        }
-        if (Objects.isNull(deCryptoAnnotation)) {
             return value;
         }
         boolean decrypt = deCryptoAnnotation.decrypt();
