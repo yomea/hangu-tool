@@ -95,7 +95,7 @@ public class FieldDecryptInterceptor implements Interceptor {
             }
         } else if (Map.class.isAssignableFrom(clazz)) {
             Map<?, ?> map = (Map<?, ?>) fieldBean;
-            map.values().forEach(item -> this.doGetDecryptVal(item));
+            map.values().forEach(this::doGetDecryptVal);
         } else if (String.class.isAssignableFrom(clazz)) {
             return this.decryptNess((String) fieldBean, field);
         } else {

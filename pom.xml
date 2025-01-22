@@ -2,7 +2,43 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.7.2</version>
+  </parent>
+
   <artifactId>parent</artifactId>
+  <groupId>com.hangu.tool</groupId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <junit.version>4.12</junit.version>
+    <lombok-version>1.18.20</lombok-version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <mybatis-spring-version>2.0.7</mybatis-spring-version>
+    <mybatis-version>3.5.10</mybatis-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <modules>
+    <module>hangu-tool-secret</module>
+    <module>hangu-tool-secret-spring-starter</module>
+    <module>hangu-tool-sensitive</module>
+    <module>hangu-tool-common</module>
+    <module>hangu-tool-sensitive-spring-starter</module>
+    <module>hangu-tool-sensitive-spring</module>
+    <module>hangu-tool-center</module>
+    <module>hangu-tool-demo</module>
+    <module>hangu-tool-demo/hangu-tool-secret-demo</module>
+    <module>hangu-tool-demo/hangu-tool-sensitive-demo</module>
+    <module>hangu-tool-serialize</module>
+  </modules>
+
   <dependencyManagement>
 
     <dependencies>
@@ -40,40 +76,5 @@
     </dependencies>
 
   </dependencyManagement>
-  <groupId>com.hangu.tool</groupId>
-  <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>hangu-tool-secret</module>
-    <module>hangu-tool-secret-spring-starter</module>
-    <module>hangu-tool-sensitive</module>
-    <module>hangu-tool-common</module>
-    <module>hangu-tool-sensitive-spring-starter</module>
-    <module>hangu-tool-sensitive-spring</module>
-    <module>hangu-tool-center</module>
-    <module>hangu-tool-demo</module>
-    <module>hangu-tool-demo/hangu-tool-secret-demo</module>
-    <module>hangu-tool-demo/hangu-tool-sensitive-demo</module>
-    <module>hangu-tool-serialize</module>
-  </modules>
-
-  <packaging>pom</packaging>
-
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <version>2.7.2</version>
-  </parent>
-
-  <properties>
-    <junit.version>4.12</junit.version>
-    <lombok-version>1.18.20</lombok-version>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
-    <mybatis-spring-version>2.0.7</mybatis-spring-version>
-    <mybatis-version>3.5.10</mybatis-version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <version>1.0-SNAPSHOT</version>
 
 </project>
