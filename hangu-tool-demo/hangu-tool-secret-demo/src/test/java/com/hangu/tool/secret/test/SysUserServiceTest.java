@@ -5,6 +5,7 @@ import com.hangu.tool.secret.App;
 import com.hangu.tool.secret.dao.entity.SysUserInfo;
 import com.hangu.tool.secret.service.ISysUserInfoService;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,11 @@ public class SysUserServiceTest {
     private ISysUserInfoService sysUserInfoService;
 
     @Test
-    public void insert() {
+    public void insertToTestEncrypt() {
 
         SysUserInfo sysUserInfo = new SysUserInfo();
-        sysUserInfo.setUserName("苏城锋");
-        sysUserInfo.setAccount("junmo");
+        sysUserInfo.setUserName("你大爷");
+        sysUserInfo.setAccount("nidaye");
         sysUserInfo.setPassword("123456");
         sysUserInfo.setAvatar("http://666.com");
         sysUserInfo.setCreateAt(LocalDateTime.now());
@@ -41,7 +42,33 @@ public class SysUserServiceTest {
     }
 
     @Test
-    public void query() {
+    public void updateToTestEncrypt() {
+        SysUserInfo update = new SysUserInfo();
+        update.setId(1L);
+        update.setPassword("999");
+        sysUserInfoService.updateById(update);
+    }
+
+    @Test
+    public void updateByPasswordToTestEncrypt() {
+        sysUserInfoService.updateByPassword("101010", "999");
+    }
+
+    @Test
+    public void updateEntityByPasswordToTestEncrypt() {
+        SysUserInfo update = new SysUserInfo();
+        update.setAvatar("sdfsdfsd");
+        update.setPassword("777");
+        sysUserInfoService.updateEntityByPassword(update, "101010");
+    }
+
+    @Test
+    public void deleteToTestEncrypt() {
+        sysUserInfoService.deleteByPassword("777");
+    }
+
+    @Test
+    public void queryToTestDeCrypt() {
 
         SysUserInfo sysUserInfo = sysUserInfoService.lambdaQuery().eq(SysUserInfo::getAccount, "junmo")
             .one();
@@ -50,7 +77,16 @@ public class SysUserServiceTest {
     }
 
     @Test
-    public void mapper() {
+    public void queryByPasswordToTestEncryptAndDecrypt() {
+        SysUserInfo query = new SysUserInfo();
+        query.setPassword("888");
+        List<SysUserInfo> sysUserInfos = sysUserInfoService.queryByPassword(query);
+
+        System.out.println(JSONUtil.toJsonStr(sysUserInfos));
+    }
+
+    @Test
+    public void mapperToTestEncrypt() {
 
         sysUserInfoService.updatePasswordByAccount("666", "junmo");
 
@@ -62,7 +98,7 @@ public class SysUserServiceTest {
 
 
     @Test
-    public void sqlSession() {
+    public void sqlSessionToTestEncrypt() {
 
         sysUserInfoService.updatePasswordByAccountSqlSession("888", "junmo");
 
