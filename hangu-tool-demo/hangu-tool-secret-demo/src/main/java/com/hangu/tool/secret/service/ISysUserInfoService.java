@@ -2,6 +2,7 @@ package com.hangu.tool.secret.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hangu.tool.secret.dao.entity.SysUserInfo;
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +17,12 @@ public interface ISysUserInfoService extends IService<SysUserInfo> {
     int updatePasswordByAccount(String password, String account);
 
     int updatePasswordByAccountSqlSession(String password, String account);
+
+    List<SysUserInfo> queryByPassword(SysUserInfo query);
+
+    int deleteByPassword(String password);
+
+    int updateByPassword(String newPassword, String oldPassword);
+
+    int updateEntityByPassword(SysUserInfo update, String oldPassword);
 }
