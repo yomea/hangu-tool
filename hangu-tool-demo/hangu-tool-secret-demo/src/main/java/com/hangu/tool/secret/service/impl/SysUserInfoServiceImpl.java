@@ -7,6 +7,7 @@ import com.hangu.tool.secret.dao.entity.SysUserInfo;
 import com.hangu.tool.secret.dao.mapper.SysUserInfoMapper;
 import com.hangu.tool.secret.service.ISysUserInfoService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,25 @@ public class SysUserInfoServiceImpl extends ServiceImpl<SysUserInfoMapper, SysUs
         int row = sqlSessionFactory.openSession().update(SysUserInfoMapper.class.getName() + ".updatePasswordByAccount",
             param);
         return row;
+    }
+
+    @Override
+    public List<SysUserInfo> queryByPassword(SysUserInfo query) {
+        return super.baseMapper.queryByPassword(query);
+    }
+
+    @Override
+    public int deleteByPassword(String password) {
+        return super.baseMapper.deleteByPassword(password);
+    }
+
+    @Override
+    public int updateByPassword(String newPassword, String oldPassword) {
+        return super.baseMapper.updateByPassword(newPassword, oldPassword);
+    }
+
+    @Override
+    public int updateEntityByPassword(SysUserInfo update, String oldPassword) {
+        return super.baseMapper.updateEntityByPassword(update, oldPassword);
     }
 }
