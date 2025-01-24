@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  */
 public class NullSerializeValueFilter implements ContextValueFilter {
 
-    private final SimpleHashMap<Type, Supplier> cache = new SimpleHashMap<>();
+    private final SimpleHashMap<Type, Supplier<?>> cache = new SimpleHashMap<>();
 
     @Override
     public Object process(BeanContext context, Object object, String name, Object value) {
@@ -31,11 +31,11 @@ public class NullSerializeValueFilter implements ContextValueFilter {
         }
         Field field = context.getField();
         if(Objects.isNull(field)) {
-            return value;
+            return null;
         }
         NullJSONField nullValueDeal = field.getAnnotation(NullJSONField.class);
         if(Objects.isNull(nullValueDeal)) {
-            return value;
+            return null;
         }
         Class<? extends Supplier<?>> functionClass = nullValueDeal.nullsUsing();
         Supplier<?> supplier = cache.get(functionClass);
