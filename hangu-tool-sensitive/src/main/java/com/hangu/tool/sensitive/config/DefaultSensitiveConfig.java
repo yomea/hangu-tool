@@ -5,6 +5,7 @@ import com.hangu.tool.sensitive.service.EncryptService;
 import com.hangu.tool.sensitive.service.impl.DefaultDesensitizationService;
 import com.hangu.tool.sensitive.service.impl.DefaultEncryptService;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.Properties;
@@ -35,7 +36,9 @@ public class DefaultSensitiveConfig {
             URL url = DefaultSensitiveConfig.class.getClassLoader().getResource(CONFIG_NAME);
             if (Objects.nonNull(url)) {
                 Properties properties = new Properties();
-                properties.load(url.openStream());
+                try (InputStream inputStream = url.openStream()) {
+                    properties.load(inputStream);
+                }
                 String encryptClassName = properties.getProperty(DEFAULT_ENCRYPT_NAME);
                 if (Objects.nonNull(encryptClassName) && !encryptClassName.trim().isEmpty()) {
                     try {
