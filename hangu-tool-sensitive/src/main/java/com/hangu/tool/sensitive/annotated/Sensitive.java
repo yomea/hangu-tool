@@ -1,7 +1,6 @@
 package com.hangu.tool.sensitive.annotated;
 
 import com.hangu.tool.sensitive.service.DesensitizationService;
-import com.hangu.tool.sensitive.service.EncryptService;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,6 +19,4 @@ import java.lang.annotation.Target;
 public @interface Sensitive {
 
     Class<DesensitizationService>[] desensitization() default {};
-
-    Class<EncryptService>[] encrypt() default {};
 }
