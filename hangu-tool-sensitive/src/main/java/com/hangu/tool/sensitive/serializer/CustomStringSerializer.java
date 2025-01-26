@@ -76,14 +76,9 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
             }
         }
 
-        Class<EncryptService>[] encryptServiceClasses = sensitive.encrypt();
-        if (Objects.isNull(encryptServiceClasses) || encryptServiceClasses.length == 0) {
-            Class<? extends EncryptService> encryptClass = DefaultSensitiveConfig.getDefaultEncrypt();
-            if (Objects.isNull(encryptClass)) {
-                throw new RuntimeException("默认的加密策略不能为空！");
-            } else {
-                encryptServiceClasses = new Class[]{encryptClass};
-            }
+        Class<? extends EncryptService> encryptClass = DefaultSensitiveConfig.getDefaultEncrypt();
+        if (Objects.isNull(encryptClass)) {
+            throw new RuntimeException("默认的加密策略不能为空！");
         }
 
         String desensitizationValue = value;
@@ -92,11 +87,12 @@ public class CustomStringSerializer extends StdScalarSerializer<String> {
             desensitizationValue = desensitizationService.desensitization(value);
         }
 
-        String encryptValue = value;
-        for (Class<EncryptService> encryptClass : encryptServiceClasses) {
-            EncryptService encryptService = this.getByCache(encryptClass);
-            encryptValue = encryptService.encrypt(value);
-        }
+        // TODO：在并发高的时候，采用加密的方式用于反向脱敏可能影响性能
+        // TODO：下个版本将提供脱敏逻辑接口，让用户自定义如何脱敏
+        // TODO：最好结合业务去脱敏
+        String encryptValue;
+        EncryptService encryptService = this.getByCache(encryptClass);
+        encryptValue = encryptService.encrypt(value);
         gen.writeStartObject();
         gen.writeStringField(name + "Desensitization", desensitizationValue);
         gen.writeStringField(name + "Encrypt", encryptValue);
