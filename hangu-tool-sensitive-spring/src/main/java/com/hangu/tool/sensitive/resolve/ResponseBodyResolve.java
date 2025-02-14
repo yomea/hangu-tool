@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -25,7 +26,7 @@ public class ResponseBodyResolve implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return Objects.nonNull(returnType.getMethodAnnotation(ResponseBody.class))
-            || Objects.nonNull(returnType.getContainingClass().getAnnotation(RestController.class));
+            || AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), RestController.class);
     }
 
     @Override
